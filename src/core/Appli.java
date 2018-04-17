@@ -1,5 +1,10 @@
+package core;
+import java.util.List;
+
 import core.interfaces.AfficheurAbstrait;
-import loaders.ConfigLoader;
+import core.model.Personne;
+import loaders.PluginsLoader;
+import loaders.PluginDescriptor;
 
 public class Appli {
     public AfficheurAbstrait getAfficheur() {
@@ -12,7 +17,10 @@ public class Appli {
 
     public Appli() {
         try {
-            afficheur = (AfficheurAbstrait) new ConfigLoader().donnePlugin("afficheur", AfficheurAbstrait.class);
+        	PluginsLoader pl = new PluginsLoader();
+            List<PluginDescriptor> afficheurs = pl.getAllPluginsByType("afficheur", AfficheurAbstrait.class);
+            displayPlugins(afficheurs);
+            afficheur = (AfficheurAbstrait) pl.getPlugin(afficheurs.get(0));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -20,6 +28,13 @@ public class Appli {
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void displayPlugins(List<PluginDescriptor> pds){
+    	for(PluginDescriptor pd :
+    		pds){
+    		System.out.print(pd.getNom());
+    	}
     }
 
     private AfficheurAbstrait afficheur;
