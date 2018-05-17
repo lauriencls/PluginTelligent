@@ -1,4 +1,4 @@
-package loaders;
+package loader;
 
 public class PluginDescriptor {
 	private String type;

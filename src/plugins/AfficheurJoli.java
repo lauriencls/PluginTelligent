@@ -1,6 +1,6 @@
 package plugins;
 
-import core.interfaces.AfficheurAbstrait;
+import core.UI.AfficheurAbstrait;
 
 public class AfficheurJoli extends AfficheurAbstrait {
     @Override

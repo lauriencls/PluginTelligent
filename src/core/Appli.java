@@ -1,10 +1,10 @@
 package core;
 import java.util.List;
 
-import core.interfaces.AfficheurAbstrait;
+import core.UI.AfficheurAbstrait;
 import core.model.Personne;
-import loaders.PluginsLoader;
-import loaders.PluginDescriptor;
+import loader.PluginDescriptor;
+import loader.PluginsLoader;
 
 public class Appli {
     public AfficheurAbstrait getAfficheur() {
