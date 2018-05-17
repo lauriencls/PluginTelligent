@@ -2,31 +2,54 @@ package core;
 import java.util.List;
 
 import core.UI.UserInterface;
-import core.model.Personne;
+import core.alarm.Alarm;
+import core.model.ModelLoader;
 import loader.PluginDescriptor;
-import loader.PluginsLoader;
 
 public abstract class Appli {
 	private UserInterface userInterface;
-	
+	private ModelLoader modelLoader;
+	private Alarm alarm;
 
-    public Appli() {
-    	PluginsLoader pl = new PluginsLoader();
-        //List<PluginDescriptor> afficheurs = pl.getAllPluginsByType("afficheur", AfficheurAbstrait.class);
-        //displayPlugins(afficheurs);
-        //afficheur = (AfficheurAbstrait) pl.getPlugin(afficheurs.get(0));
-    }
     
-    private void displayPlugins(List<PluginDescriptor> pds){
+    public UserInterface getUserInterface() {
+		return userInterface;
+	}
+
+	public void setUserInterface(UserInterface userInterface) {
+		this.userInterface = userInterface;
+	}
+
+	public ModelLoader getModelLoader() {
+		return modelLoader;
+	}
+
+	public void setModelLoader(ModelLoader modelLoader) {
+		this.modelLoader = modelLoader;
+	}
+
+	public Alarm getAlarm() {
+		return alarm;
+	}
+
+	public void setAlarm(Alarm alarm) {
+		this.alarm = alarm;
+	}
+
+	public Appli(UserInterface userInterface, ModelLoader modelLoader, Alarm alarm) {
+		super();
+		this.userInterface = userInterface;
+		this.modelLoader = modelLoader;
+		this.alarm = alarm;
+	}
+
+	private void displayPlugins(List<PluginDescriptor> pds){
     	for(PluginDescriptor pd :
     		pds){
     		System.out.print(pd.getNom());
     	}
     }
 
-    public void run(){
-        Personne p = new Personne("toto", "nantes");
-        //afficheur.afficher(p.toString());
-    }
+    public abstract void run();
 
 }
