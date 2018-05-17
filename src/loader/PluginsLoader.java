@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import core.UI.AfficheurAbstrait;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -36,7 +35,7 @@ public class PluginsLoader {
     public Object donnePlugin(String key, Class<?> plugin) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class<?> c = Class.forName(p.getProperty(key));
         Object o = c.newInstance();
-        if (AfficheurAbstrait.class.isAssignableFrom(c)){
+        if (plugin.isAssignableFrom(c)){
             return o;
         }
         return null;
