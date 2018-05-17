@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import core.UI.AfficheurAbstrait;
 
 public class PluginsLoader {
     private static String filename = "config.properties";
@@ -24,7 +23,7 @@ public class PluginsLoader {
     public Object donnePlugin(String key, Class<?> plugin) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class<?> c = Class.forName(p.getProperty(key));
         Object o = c.newInstance();
-        if (AfficheurAbstrait.class.isAssignableFrom(c)){
+        if (plugin.isAssignableFrom(c)){
             return o;
         }
         return null;
