@@ -1,8 +1,14 @@
 package core.UI;
 
+import java.awt.FlowLayout;
+
+import model.Message;
+
 public abstract class Body {
 	private String uniqueName;
-	private UserInterface userInterface;
+	private String title;
+	private String icon;
+	protected UserInterface userInterface;
 
 	public Body(String uniqueName, UserInterface userInterface) {
 		super();
@@ -23,10 +29,28 @@ public abstract class Body {
 		this.uniqueName = uniqueName;
 	}
 	
-	public abstract void drawBody();
+	protected void drawBody(){
+		drawChannelPanel();
+		drawListMessages();
+		drawTextEntry();
+	}
+	
+	protected abstract void drawTextEntry();
+	
+	protected abstract void drawListMessages();
+	
+	protected abstract void drawChannelPanel();
+	
+	protected abstract void addMessage(Message message);
 	
 	public void draw(){
+		this.userInterface.setLayout(new FlowLayout());
+		
 		drawBody();
+		
+		this.userInterface.setTitle("PlugIntelligent");  
+		this.userInterface.setSize(250, 100);        
+		this.userInterface.setVisible(true);         
 	}
 	
 	

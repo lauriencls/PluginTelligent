@@ -1,9 +1,10 @@
 package core.UI;
 
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UserInterface {
+public abstract class UserInterface extends Frame {
 	protected List<Body> bodies;
 	
 	public UserInterface() {
