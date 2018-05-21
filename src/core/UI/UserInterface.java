@@ -1,10 +1,18 @@
 package core.UI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class UserInterface {
-	private List<Body> bodies;
-	private List<Menu> menus;
+	protected List<Body> bodies;
+	
+	public UserInterface() {
+		super();
+		this.bodies = new ArrayList<>();
+		this.menus = new ArrayList<>();
+	}
+
+	protected List<Menu> menus;
 	
 	public UserInterface(List<Body> bodies, List<Menu> menus) {
 		super();
@@ -24,9 +32,17 @@ public abstract class UserInterface {
 		this.menus = menus;
 	}
 	
-	protected abstract void displayMenu();
-	
-	protected abstract void displayBody();
+	private void displayMenu() {
+		for(Menu m:menus){
+			m.draw();
+		}
+	}
+
+	private void displayBody() {
+		for(Body b:bodies){
+			b.draw();
+		}
+	}
 	
 	public void display(){
 		displayMenu();
@@ -34,5 +50,13 @@ public abstract class UserInterface {
 	}
 	
 	public abstract void showBody();
+	
+	public void addBody(Body b){
+		this.bodies.add(b);
+	}
+	
+	public void addMenu(Menu m){
+		this.menus.add(m);
+	}
 	
 }

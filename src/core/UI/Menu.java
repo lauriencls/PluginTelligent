@@ -2,6 +2,13 @@ package core.UI;
 
 public abstract class Menu {
 	private String uniqueName;
+	private UserInterface userInterface;
+
+	public Menu(String uniqueName, UserInterface userInterface) {
+		super();
+		this.uniqueName = uniqueName;
+		this.userInterface = userInterface;
+	}
 
 	public Menu(String uniqueName) {
 		super();
@@ -15,4 +22,6 @@ public abstract class Menu {
 	public void setUniqueName(String uniqueName) {
 		this.uniqueName = uniqueName;
 	}
+	
+	public abstract void draw();
 }

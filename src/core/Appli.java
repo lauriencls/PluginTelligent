@@ -43,13 +43,10 @@ public abstract class Appli {
 		this.alarm = alarm;
 	}
 
-	private void displayPlugins(List<PluginDescriptor> pds){
-    	for(PluginDescriptor pd :
-    		pds){
-    		System.out.print(pd.getNom());
-    	}
+    public void run(){
+    	this.modelLoader.load();
+    	this.alarm.load();
+    	this.userInterface.display();
     }
-
-    public abstract void run();
 
 }
