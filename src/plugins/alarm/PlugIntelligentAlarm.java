@@ -14,5 +14,12 @@ public class PlugIntelligentAlarm extends Alarm {
 		// TODO Auto-generated method stub
 
 	}
+	
+	
+	//TODO : Ajouter les méthodes dont aura besoin l'interface ou n'importe quel plugin qui utilisera l'Alarm qui sont
+	//dans la classe Alarm
+	
+	//TODO : Ajouter la méthode de test dans une méthode main
+	
 
 }
