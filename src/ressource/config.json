@@ -1,6 +1,6 @@
 {"plugins" : [
 		{
-		    "type":"appli",
+		    "type":null,
 		    "name":"Slack PlugIntelligent",
 		    "className":"PlugIntelligent",
 		    "dependencies":["PlugIntelligentAlarm", "PlugIntelligentModelLoader", "PlugIntelligentBody", "PlugIntelligentMenu", "PlugIntelligentUI"]
