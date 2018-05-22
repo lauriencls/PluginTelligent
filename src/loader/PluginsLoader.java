@@ -190,6 +190,7 @@ public class PluginsLoader {
 			e.printStackTrace();
 		}
         ((UserInterface) ui).addMenu((Menu) menu);
+        ((Body) body).setUserInterface((UserInterface) ui);
 		return (UserInterface) ui;
 	}
 

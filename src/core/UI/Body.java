@@ -49,6 +49,14 @@ public abstract class Body {
 		this.userInterface.setSize(250, 100);        
 		this.userInterface.setVisible(true);         
 	}
+
+	public UserInterface getUserInterface() {
+		return userInterface;
+	}
+
+	public void setUserInterface(UserInterface userInterface) {
+		this.userInterface = userInterface;
+	}
 	
 	
 }
