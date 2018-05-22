@@ -1,13 +1,14 @@
 package model;
 
 import core.model.Model;
+import java.time.Instant;
 
 public class Message extends Model {
 	private String title;
 	private String body;
-	private String createdTime;
+	private Instant createdTime;
 
-	public Message(String uniqueName, String title, String body, String createdTime) {
+	public Message(String uniqueName, String title, String body, Instant createdTime) {
 		super(uniqueName);
 		this.title = title;
 		this.body = body;
@@ -41,11 +42,11 @@ public class Message extends Model {
 		this.body = body;
 	}
 
-	public String getCreatedTime() {
+	public Instant getCreatedTime() {
 		return createdTime;
 	}
 
-	public void setCreatedTime(String createdTime) {
+	public void setCreatedTime(Instant createdTime) {
 		this.createdTime = createdTime;
 	}
 
