@@ -15,4 +15,6 @@ public abstract class Alarm {
 		super();
 		this.uniqueName = uniqueName;
 	}
+	
+	public abstract void load();
 }

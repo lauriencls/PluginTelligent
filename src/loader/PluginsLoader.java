@@ -9,6 +9,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import core.UI.Body;
+import core.UI.Menu;
+import core.UI.UserInterface;
+import core.alarm.Alarm;
+import core.model.ModelLoader;
+import plugins.PlugIntelligent;
+import plugins.alarm.PlugIntelligentAlarm;
+import plugins.model.PlugIntelligentModelLoader;
+import plugins.ui.PlugIntelligentBody;
+import plugins.ui.PlugIntelligentMenu;
+import plugins.ui.PlugIntelligentUI;
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -69,5 +81,24 @@ public class PluginsLoader {
             return o;
         }
         return null;
+    }
+    
+ // The entry main() method
+    public static void main(String[] args) {
+
+    	UserInterface ui = new PlugIntelligentUI(); 
+    	Body b = new PlugIntelligentBody("PlugIntelligentBody", ui);
+    	ui.addBody(b);
+    	Menu m = new PlugIntelligentMenu("PlugIntelligentMenu", ui);
+    	ui.addMenu(m);
+    	
+    	Alarm a = new PlugIntelligentAlarm("PlugIntelligentAlarm");
+    	
+    	ModelLoader ml = new PlugIntelligentModelLoader("PlugIntelligentModelLoader");
+    	
+    	
+    	PlugIntelligent pi = new PlugIntelligent(ui,ml,a);
+    	
+    	pi.run();
     }
 }
