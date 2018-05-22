@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 
@@ -14,27 +16,40 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class PluginsLoader {
-    private static String filename = "config.properties";
-    private Properties p;
+    private static String filename = "config.json";
+    private Map<String, PluginDescriptor> loaded = new HashMap<String, PluginDescriptor>();
 
-    public PluginsLoader() throws ParseException {
+    public PluginsLoader() throws ParseException, ClassNotFoundException {
     	JSONParser parser = new JSONParser();
-
     	try {
-        	JSONArray a = (JSONArray) parser.parse(new FileReader(filename));
-      	  for (Object o : a)
+        	JSONArray plugins = (JSONArray) parser.parse(new FileReader(filename));
+      	  for (Object p : plugins)
       	  {
-      		JSONObject plugin = (JSONObject) o;
+      		JSONObject plugin = (JSONObject) p;
+      		String type = (String) plugin.get("type");
+      		String name = (String) plugin.get("name");
+      		String className = (String) plugin.get("className");
+      		List<String> dList = new ArrayList<String>();
+      		JSONArray dependencies = (JSONArray) plugin.get("dependencies");
+        	  for (Object d : dependencies)
+          	  {
+        		  JSONObject dName = (JSONObject) d;
+            		String bvbname = (String) dName.get("name");
+            		dList.add(bvbname);
+          	  }
+              Class<?> interf = Class.forName(className);
+        		PluginDescriptor pd = new PluginDescriptor(type, name, className, interf, dList);
+        		loaded.put(className, pd);
       	  }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public Object donnePlugin(String key, Class<?> plugin) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Class<?> c = Class.forName(p.getProperty(key));
+        Class<?> c = Class.forName(key);
         Object o = c.newInstance();
+        loaded.get(key);
         if (plugin.isAssignableFrom(c)){
             return o;
         }
@@ -43,7 +58,7 @@ public class PluginsLoader {
     
     public List<PluginDescriptor> getAllPluginsByType(String type, Class<?> interf){
     	ArrayList<PluginDescriptor> allPlugins = new ArrayList<>();
-    	allPlugins.add(new PluginDescriptor("afficheur", "Un afficheur custom", "plugins.MonAfficheur", interf)); 
+    	allPlugins.add(new PluginDescriptor("afficheur", "Un afficheur custom", "plugins.MonAfficheur", interf, new ArrayList<String>())); 
     	return allPlugins;
     }
     
