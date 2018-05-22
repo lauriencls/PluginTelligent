@@ -6,14 +6,12 @@ public class Message extends Model {
 	private String title;
 	private String body;
 	private String createdTime;
-	private Alarm alarm;
 
-	public Message(String uniqueName, String title, String body, String createdTime, Alarm alarm) {
+	public Message(String uniqueName, String title, String body, String createdTime) {
 		super(uniqueName);
 		this.title = title;
 		this.body = body;
 		this.createdTime = createdTime;
-		this.alarm = alarm;
 	}
 
 	public Message(String uniqueName) {
@@ -51,12 +49,5 @@ public class Message extends Model {
 		this.createdTime = createdTime;
 	}
 
-	public Alarm getAlarm() {
-		return alarm;
-	}
-
-	public void setAlarm(Alarm alarm) {
-		this.alarm = alarm;
-	}
  
 }
