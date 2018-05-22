@@ -3,7 +3,13 @@
 		    "type":null,
 		    "name":"Slack PlugIntelligent",
 		    "className":"PlugIntelligent",
-		    "dependencies":["PlugIntelligentAlarm", "PlugIntelligentModelLoader", "PlugIntelligentBody", "PlugIntelligentMenu", "PlugIntelligentUI"]
+		    "dependencies":["PlugIntelligentAlarm", "PlugIntelligentModelLoader", "PlugIntelligentBody", "PlugIntelligentMenu", "PlugIntelligentUI"],
+		    "isMainApplication" : 1,
+		    "ui":"PlugIntelligentUI", 
+		    "menu":"PlugIntelligentMenu",
+		    "body":"PlugIntelligentBody",
+		    "alarm":"PlugIntelligentAlarm",
+		    "modeloader":"PlugIntelligentModelLoader"
 		},
 		{
 		    "type":"ui",
