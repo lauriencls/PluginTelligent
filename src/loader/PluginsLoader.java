@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 import core.UI.Body;
 import core.UI.Menu;
 import core.UI.UserInterface;
-import core.alarm.Alarm;
 import core.model.ModelLoader;
+import model.Alarm;
 import plugins.PlugIntelligent;
 import plugins.alarm.PlugIntelligentAlarm;
 import plugins.model.PlugIntelligentModelLoader;
@@ -133,7 +133,7 @@ public class PluginsLoader {
     	Menu m = new PlugIntelligentMenu("PlugIntelligentMenu", ui);
     	ui.addMenu(m);
     	
-    	Alarm a = new PlugIntelligentAlarm("PlugIntelligentAlarm");
+    	Alarm a = new PlugIntelligentAlarm();
     	
     	ModelLoader ml = new PlugIntelligentModelLoader("PlugIntelligentModelLoader");
     	

@@ -2,9 +2,9 @@ package core;
 import java.util.List;
 
 import core.UI.UserInterface;
-import core.alarm.Alarm;
 import core.model.ModelLoader;
 import loader.PluginDescriptor;
+import model.Alarm;
 
 public abstract class Appli {
 	private UserInterface userInterface;
