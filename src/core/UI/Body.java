@@ -29,14 +29,6 @@ public abstract class Body {
 	public void setUniqueName(String uniqueName) {
 		this.uniqueName = uniqueName;
 	}
-	
-	public UserInterface getUserInterface() {
-		return userInterface;
-	}
-
-	public void setUserInterface(UserInterface userInterface) {
-		this.userInterface = userInterface;
-	}
 
 	protected void drawBody(){
 		
@@ -55,8 +47,6 @@ public abstract class Body {
 	
 	public void draw(){		
 		drawBody();
-		
-		
 		        
 	}
 
@@ -67,6 +57,5 @@ public abstract class Body {
 	public void setUserInterface(UserInterface userInterface) {
 		this.userInterface = userInterface;
 	}
-	
 	
 }

@@ -1,5 +1,6 @@
 package core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Les classes étendant ModelLoader doivent servir à récupérer les instances du modèle et à les sérialiser après leur modification.
@@ -7,6 +8,9 @@ import java.util.List;
 // Ces listes devront être statiques
 public abstract class ModelLoader {
 	private String uniqueName;
+	public static List<Model> alarms = new ArrayList<>();
+	public static List<Model> messages = new ArrayList<>();	
+	public static List<Model> users = new ArrayList<>();
 	
 	public ModelLoader() {
 		super();

@@ -18,9 +18,7 @@ import model.User;
 
 public class PlugIntelligentModelLoader extends ModelLoader {
 	private static String filename = "src/ressource/model.json";
-	public static List<Model> alarms = new ArrayList<>();
-	public static List<Model> messages = new ArrayList<>();	
-	public static List<Model> users = new ArrayList<>();	
+	
 
 	public PlugIntelligentModelLoader() {
 		super();

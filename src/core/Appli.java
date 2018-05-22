@@ -15,6 +15,7 @@ public abstract class Appli {
 
 	public void setUserInterface() {	
 		this.userInterface = PluginsLoader.getInstance().getDefaultUI();
+		this.userInterface.setAppli(this);
 	}
 
 	public ModelLoader getModelLoader() {

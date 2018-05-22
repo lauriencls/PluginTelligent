@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import core.UI.Body;
+import core.model.ModelLoader;
 import model.Message;
 
 public class PlugIntelligentBody extends Body {
@@ -102,6 +103,8 @@ public class PlugIntelligentBody extends Body {
             } else {
             	Message m = new Message("title", messageBox.getText(), Instant.now());
                 pi.addMessage(m);
+                ModelLoader.alarms.add(pi.getUserInterface().getAppli().getAlarm().createAlarm(m, Instant.now(), true));
+                pi.getUserInterface().getAppli().getModelLoader().save();
                 messageBox.setText("");
             }
             messageBox.requestFocusInWindow();

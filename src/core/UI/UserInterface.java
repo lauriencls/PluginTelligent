@@ -8,11 +8,14 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import core.Appli;
+import core.model.Model;
 import model.Message;
 
 public abstract class UserInterface {
 	protected List<Body> bodies;
 	protected JFrame frame;
+	protected Appli appli;
 	
 	public UserInterface() {
 		super();
@@ -26,6 +29,14 @@ public abstract class UserInterface {
 	}
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
+	}
+
+	public Appli getAppli() {
+		return appli;
+	}
+
+	public void setAppli(Appli appli) {
+		this.appli = appli;
 	}
 
 	protected List<Menu> menus;
@@ -69,7 +80,7 @@ public abstract class UserInterface {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		//populateMessage()
+		populateMessage(this.appli.getModelLoader().getRessourceByName("Message"));
 	}
 		
 	public void addBody(Body b){
@@ -80,11 +91,11 @@ public abstract class UserInterface {
 		this.menus.add(m);
 	}
 	
-	public void populateMessage(List<Message> messages){
-		for(Message m:
-			messages){
+	public void populateMessage(List<Model> list){
+		for(Model m:
+			list){
 			for(Body b:bodies){
-				b.addMessage(m);
+				b.addMessage((Message) m);
 			}
 		}
 	}
