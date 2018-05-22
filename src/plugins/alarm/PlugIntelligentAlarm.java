@@ -14,12 +14,6 @@ public class PlugIntelligentAlarm extends AlarmLoader {
 	}
 
 	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void createAlarm(Message message, Instant triggerDateTime, boolean isActive) {
 		// TODO Auto-generated method stub
 		

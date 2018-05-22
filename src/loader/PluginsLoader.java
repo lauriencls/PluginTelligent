@@ -97,13 +97,13 @@ public class PluginsLoader {
     	Menu m = new PlugIntelligentMenu("PlugIntelligentMenu", ui);
     	ui.addMenu(m);
     	
-    	Alarm a = new PlugIntelligentAlarm();
+    	/*Alarm a = new PlugIntelligentAlarm();
     	
     	ModelLoader ml = new PlugIntelligentModelLoader("PlugIntelligentModelLoader");
     	
     	
     	PlugIntelligent pi = new PlugIntelligent(ui,ml,a);
     	
-    	pi.run();
+    	pi.run();*/
     }
 }
