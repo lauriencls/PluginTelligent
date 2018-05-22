@@ -29,6 +29,6 @@ public abstract class AlarmLoader {
 	/**
 	 * Déclenche l'alarme dont la date de déclenchement est donnée
 	 */
-	public abstract void triggerAlarm();
+	public abstract void triggerAlarm(Alarm alarm);
 
 }
