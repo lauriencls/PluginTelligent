@@ -1,15 +1,15 @@
 {"plugins" : [
 		{
-		    "type":"simplePlug",
-		    "name":"Genesis",
-		    "className":"PlugIntelligentAlarm",
-		    "dependencies":["plug1", "plug2"]
+		    "type":"appli",
+		    "name":"Slack PlugIntelligent",
+		    "className":"PlugIntelligent",
+		    "dependencies":["PlugIntelligentAlarm", "PlugIntelligentModelLoader", "PlugIntelligentBody", "PlugIntelligentMenu", "PlugIntelligentUI"]
 		},
-				{
-		    "type":"afficheur",
-		    "name":"Hyponaurphe",
-		    "className":"AffichPlug",
-		    "dependencies":["plug3", "plug2"]
+		{
+		    "type":"ui",
+		    "name":"PlugIntelligent user interface",
+		    "className":"PlugIntelligentUI",
+		    "dependencies":[]
 		}
 	]
 }
