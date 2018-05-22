@@ -1,12 +1,12 @@
 package model;
 
-import java.util.Date;
+import java.time.Instant;
 
 import core.model.Model;
 
 public class Alarm extends Model {
 	private Message message;
-	private Date triggerDateTime;
+	private Instant triggerDateTime;
 
 	public Message getMessage() {
 		return message;
@@ -16,15 +16,15 @@ public class Alarm extends Model {
 		this.message = message;
 	}
 
-	public Date getTriggerDateTime() {
+	public Instant getTriggerDateTime() {
 		return triggerDateTime;
 	}
 
-	public void setTriggerDateTime(Date triggerDateTime) {
+	public void setTriggerDateTime(Instant triggerDateTime) {
 		this.triggerDateTime = triggerDateTime;
 	}
 
-	public Alarm(String uniqueName, Message message, Date triggerDateTime) {
+	public Alarm(String uniqueName, Message message, Instant triggerDateTime) {
 		super(uniqueName);
 		this.message = message;
 		this.triggerDateTime = triggerDateTime;
