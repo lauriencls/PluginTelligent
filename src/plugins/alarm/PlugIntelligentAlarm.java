@@ -1,8 +1,12 @@
 package plugins.alarm;
 
-import model.Alarm;
+import java.time.Instant;
 
-public class PlugIntelligentAlarm extends Alarm {
+import core.model.AlarmLoader;
+import model.Alarm;
+import model.Message;
+
+public class PlugIntelligentAlarm extends AlarmLoader {
 
 	public PlugIntelligentAlarm() {
 		
@@ -13,6 +17,24 @@ public class PlugIntelligentAlarm extends Alarm {
 	public void load() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void createAlarm(Message message, Instant triggerDateTime, boolean isActive) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setupAlarm(Message message, Instant triggerDateTime, boolean isActive) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void triggerAlarm(Instant triggerDateTime) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
