@@ -1,0 +1,15 @@
+{"plugins" : [
+		{
+		    "type":"simplePlug",
+		    "name":"Genesis",
+		    "className":"PlugIntelligentAlarm",
+		    "dependencies":["plug1", "plug2"]
+		},
+				{
+		    "type":"afficheur",
+		    "name":"Hyponaurphe",
+		    "className":"AffichPlug",
+		    "dependencies":["plug3", "plug2"]
+		}
+	]
+}

@@ -1,9 +1,0 @@
-{"plugin" : [
-		{
-		    "type":"simplePlug",
-		    "name":"Genesis",
-		    "className":"testPlug",
-		    "dependencies":["plug1", "plug2"]
-		}
-	]
-}
