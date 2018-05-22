@@ -5,8 +5,8 @@ import core.UI.UserInterface;
 
 public class PlugIntelligentMenu extends Menu {
 
-	public PlugIntelligentMenu(String uniqueName, UserInterface userInterface) {
-		super(uniqueName, userInterface);
+	public PlugIntelligentMenu() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

@@ -4,10 +4,7 @@ public abstract class Menu {
 	private String uniqueName;
 	private UserInterface userInterface;
 
-	public Menu(String uniqueName, UserInterface userInterface) {
-		super();
-		this.uniqueName = uniqueName;
-		this.userInterface = userInterface;
+	public Menu() {
 	}
 
 	public Menu(String uniqueName) {

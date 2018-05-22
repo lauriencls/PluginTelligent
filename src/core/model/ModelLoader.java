@@ -21,7 +21,7 @@ public abstract class ModelLoader {
 	
 	public abstract void load();
 	
-	public abstract void save(List<Model> objects);
+	public abstract void save();
 	
 	/*
 	 * Returns a list of objects Model
