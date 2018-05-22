@@ -8,40 +8,42 @@ import model.Message;
 
 public class PlugIntelligentAlarm extends AlarmLoader {
 
+	/**
+	 * Constructeur de la classe
+	 */
 	public PlugIntelligentAlarm() {
-		
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-
+	public Alarm createAlarm(Message message, Instant triggerDateTime, boolean isActive) {
+		return new Alarm(message, triggerDateTime, isActive);
 	}
 
 	@Override
-	public void createAlarm(Message message, Instant triggerDateTime, boolean isActive) {
-		// TODO Auto-generated method stub
-		
+	public void setupAlarmTriggerDate(Alarm alarm, Instant triggerDateTime) {
+			alarm.setTriggerDateTime(triggerDateTime);
 	}
 
 	@Override
-	public void setupAlarm(Message message, Instant triggerDateTime, boolean isActive) {
+	public void triggerAlarm() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void triggerAlarm(Instant triggerDateTime) {
-		// TODO Auto-generated method stub
-		
+	public void changeActivationAlarm(Alarm alarm) {
+		alarm.setActive(!alarm.isActive());
 	}
 	
-	
-	//TODO : Ajouter les méthodes dont aura besoin l'interface ou n'importe quel plugin qui utilisera l'Alarm qui sont
-	//dans la classe Alarm
-	
-	//TODO : Ajouter la méthode de test dans une méthode main
+	public static void main(String[] args){
+		PlugIntelligentAlarm pia = new PlugIntelligentAlarm();
+		Instant dateSonnerie = Instant.now();
+		Message message = new Message("test", "Je suis un test", dateSonnerie);
+		Alarm alarm = pia.createAlarm(message, dateSonnerie, false);
+		pia.setupAlarmTriggerDate(alarm, dateSonnerie.plusSeconds(50));
+		pia.changeActivationAlarm(alarm);
+	}
 	
 
 }
