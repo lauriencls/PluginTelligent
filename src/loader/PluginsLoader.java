@@ -7,19 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
+import core.Appli;
 import core.UI.Body;
 import core.UI.Menu;
 import core.UI.UserInterface;
+import core.model.AlarmLoader;
 import core.model.ModelLoader;
 import model.Alarm;
-import plugins.PlugIntelligent;
-import plugins.alarm.PlugIntelligentAlarm;
-import plugins.model.PlugIntelligentModelLoader;
-import plugins.ui.PlugIntelligentBody;
-import plugins.ui.PlugIntelligentMenu;
-import plugins.ui.PlugIntelligentUI;
 
 
 import org.json.simple.JSONArray;
@@ -37,23 +32,20 @@ public class PluginsLoader {
     private String defaultAlarm;
     private String defaultModelLoader;
 
-
-    public PluginsLoader() throws ParseException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    private PluginsLoader(){
     	JSONParser parser = new JSONParser();
     	try {
-    		JSONObject obj = (JSONObject) parser.parse(new FileReader(filename));
+    		JSONObject obj = null;
+			try {
+				obj = (JSONObject) parser.parse(new FileReader(filename));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	JSONArray plugins = (JSONArray) obj.get("plugins");
-        	System.out.println(obj);
       	  for (Object p : plugins)
       	  {
       		JSONObject plugin = (JSONObject) p;
-      		if(plugin.get("isMainApplication")!=null){
-      			defaultUI=(String) plugin.get("ui");
-      			defaultMenu=(String) plugin.get("menu");
-      			defaultBody=(String) plugin.get("body");
-      			defaultAlarm=(String) plugin.get("alarm");
-    		    defaultModelLoader=(String) plugin.get("modeloader");
-      		}
       		String type = (String) plugin.get("type");
       		String name = (String) plugin.get("name");
       		String className = (String) plugin.get("className");
@@ -68,6 +60,14 @@ public class PluginsLoader {
               Class<?> interf = Class.forName(classNamePack);
         		PluginDescriptor pd = new PluginDescriptor(type, name, className, interf, dList);
         		loaded.put(className, pd);
+          		if(plugin.get("isMainApplication")!=null){
+          			defaultUI=(String) plugin.get("ui");
+          			defaultMenu=(String) plugin.get("menu");
+          			defaultBody=(String) plugin.get("body");
+          			defaultAlarm=(String) plugin.get("alarm");
+        		    defaultModelLoader=(String) plugin.get("modeloader");
+        		    defaultPlugin=pd;
+          		}
       	  }
       	/*for(Entry<String, PluginDescriptor> entry : loaded.entrySet()) {
       	    PluginDescriptor value = entry.getValue();
@@ -79,9 +79,22 @@ public class PluginsLoader {
       	}*/
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
-
+    //Holder
+    private static class PluginsLoaderHolder
+    {       
+        private final static PluginsLoader instance = new PluginsLoader();
+    }
+ 
+    public static PluginsLoader getInstance()
+    {
+        return PluginsLoaderHolder.instance;
+    }
+    
     public Object getPlugin(String key, Class<?> plugin) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class<?> c = Class.forName(key);
         Object o = c.newInstance();
@@ -105,13 +118,11 @@ public class PluginsLoader {
         }
         return null;
     }
-    public void initMainPlugin() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
-      	    Class<?> classA = Class.forName("plugins.alarm."+defaultAlarm);
-            Object alarm = classA.getConstructor(Class.class).newInstance(defaultAlarm);
-
-      	    Class<?> classMain = Class.forName("plugins."+defaultPlugin.getClassName());
-            Object pluginMain = classMain.getConstructor(Class.class).newInstance();
-            ((PlugIntelligent) pluginMain).run();
+    public Appli initMainPlugin() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+    	Class<?> classMain = Class.forName("plugins."+defaultPlugin.getClassName());
+            Object pluginMain = classMain.newInstance();
+            ((Appli) pluginMain).run();
+            return (Appli) pluginMain;
     }
     
  // The entry main() method
@@ -134,21 +145,87 @@ public class PluginsLoader {
     	pi.run();*/
     }
 
-	public UserInterface getDefaultUI() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-  	    Class<?> classUI = Class.forName("plugins.ui."+defaultUI);
-        Object ui = classUI.newInstance();
-  	    Class<?> classB = Class.forName("plugins.ui."+defaultBody);
-        Object body = classB.newInstance();
+	public UserInterface getDefaultUI() {
+  	    Class<?> classUI = null;
+		try {
+			classUI = Class.forName("plugins.ui."+defaultUI);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Object ui = null;
+		try {
+			ui = classUI.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+  	    Class<?> classB = null;
+		try {
+			classB = Class.forName("plugins.ui."+defaultBody);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Object body = null;
+		try {
+			body = classB.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         ((UserInterface) ui).addBody((Body) body);
-  	    Class<?> classM = Class.forName("plugins.ui."+defaultMenu);
-        Object menu = classM.newInstance();
+  	    Class<?> classM = null;
+		try {
+			classM = Class.forName("plugins.ui."+defaultMenu);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Object menu = null;
+		try {
+			menu = classM.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         ((UserInterface) ui).addMenu((Menu) menu);
 		return (UserInterface) ui;
 	}
 
-	public ModelLoader getDefaultModelLoader() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-  	    Class<?> classML = Class.forName("model."+defaultModelLoader);
-        Object modelLoader = classML.newInstance();
+	public ModelLoader getDefaultModelLoader() {
+  	    Class<?> classML = null;
+		try {
+			classML = Class.forName("plugins.model."+defaultModelLoader);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Object modelLoader = null;
+		try {
+			modelLoader = classML.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return (ModelLoader) modelLoader;
+	}
+
+	public AlarmLoader getDefaultAlarm() {
+  	    Class<?> classA = null;
+		try {
+			classA = Class.forName("plugins.alarm."+defaultAlarm);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Object alarm = null;
+		try {
+			alarm = classA.newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (AlarmLoader) alarm;
 	}
 }

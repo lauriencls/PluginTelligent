@@ -3,12 +3,11 @@ package core.model;
 import java.util.List;
 
 public abstract class ModelLoader {
-	// TODO à commenter
+	// TODO ï¿½ commenter
 	private String uniqueName;
 	
-	public ModelLoader(String uniqueName) {
+	public ModelLoader() {
 		super();
-		this.uniqueName = uniqueName;
 	}
 
 	public String getUniqueName() {

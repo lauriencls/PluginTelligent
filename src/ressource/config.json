@@ -18,13 +18,13 @@
 		    "dependencies":[]
 		},
 		{
-		    "type":"menu",
+		    "type":"ui",
 		    "name":"PlugIntelligent menu interface",
 		    "className":"PlugIntelligentMenu",
 		    "dependencies":[]
 		},
 		{
-		    "type":"body",
+		    "type":"ui",
 		    "name":"PlugIntelligent body interface",
 		    "className":"PlugIntelligentBody",
 		    "dependencies":[]
@@ -36,7 +36,7 @@
 		    "dependencies":[]
 		},
 		{
-		    "type":"modeloader",
+		    "type":"model",
 		    "name":"PlugIntelligent model loader",
 		    "className":"PlugIntelligentModelLoader",
 		    "dependencies":[]

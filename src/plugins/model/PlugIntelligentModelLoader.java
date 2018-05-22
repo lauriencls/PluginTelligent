@@ -23,8 +23,8 @@ public class PlugIntelligentModelLoader extends ModelLoader {
 	private static String filename = "src/ressource/model.json";
     	
 
-	public PlugIntelligentModelLoader(String uniqueName) {
-		super(uniqueName);
+	public PlugIntelligentModelLoader() {
+		super();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class PlugIntelligentModelLoader extends ModelLoader {
 	}
 	
 	public static void main(String[] args){
-		PlugIntelligentModelLoader p = new PlugIntelligentModelLoader("Alarm");
+		PlugIntelligentModelLoader p = new PlugIntelligentModelLoader();
 		p.load();
 	}
 	
