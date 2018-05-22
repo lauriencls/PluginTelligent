@@ -1,9 +1,11 @@
-package core.alarm;
+package model;
 
-import model.Message;
 import java.time.Instant;
 import core.model.Model;
 
+/**
+ * Classe correspondant à une alarme. Une alarme est liée à un message, et est déclenchée à une date si elle est active
+ */
 public class Alarm extends Model {
 	private String uniqueName;
 	private Message message;
@@ -19,9 +21,7 @@ public class Alarm extends Model {
 	 */
 	public Alarm(String uniqueName, Message message, Instant triggerDateTime, boolean isActive) {
 		super(uniqueName);
-		this.message = message;
-		this.triggerDateTime = triggerDateTime;
-		this.isActive = isActive;
+		setupAlarm(message, triggerDateTime, isActive);
 	}
 	
 	public Alarm(String uniqueName) {
@@ -65,8 +65,17 @@ public class Alarm extends Model {
 		// TODO Auto-generated method stub
 
 	}
-
-//setupAlarm
-//triggerAlarm
+	
+	/**
+	 * Paramétrage de l'alarme
+	 * @param message : Message affiché par l'alarme
+	 * @param triggerDateTime : Date de déclencheemnt de l'alarme
+	 * @param isActive : Détermine si l'alarme est active
+	 */
+	private void setupAlarm(Message message, Instant triggerDateTime, boolean isActive) {
+		this.message = message;
+		this.triggerDateTime = triggerDateTime;
+		this.isActive = isActive;
+	}
 	
 }
