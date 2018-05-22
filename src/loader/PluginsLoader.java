@@ -28,13 +28,15 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class PluginsLoader {
-    private static String filename = "config.json";
+    private static String filename = "src/ressource/config.json";
     private Map<String, PluginDescriptor> loaded = new HashMap<String, PluginDescriptor>();
 
     public PluginsLoader() throws ParseException, ClassNotFoundException {
     	JSONParser parser = new JSONParser();
     	try {
-        	JSONArray plugins = (JSONArray) parser.parse(new FileReader(filename));
+    		JSONObject obj = (JSONObject) parser.parse(new FileReader(filename));
+        	JSONArray plugins = (JSONArray) obj.get("plugins");
+        	System.out.println(obj);
       	  for (Object p : plugins)
       	  {
       		JSONObject plugin = (JSONObject) p;
@@ -45,9 +47,8 @@ public class PluginsLoader {
       		JSONArray dependencies = (JSONArray) plugin.get("dependencies");
         	  for (Object d : dependencies)
           	  {
-        		  JSONObject dName = (JSONObject) d;
-            		String bvbname = (String) dName.get("name");
-            		dList.add(bvbname);
+        		String dName = (String) d;
+            	dList.add(dName);
           	  }
               Class<?> interf = Class.forName(className);
         		PluginDescriptor pd = new PluginDescriptor(type, name, className, interf, dList);
@@ -85,7 +86,15 @@ public class PluginsLoader {
     
  // The entry main() method
     public static void main(String[] args) {
-
+    	try {
+			PluginsLoader p = new PluginsLoader();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	UserInterface ui = new PlugIntelligentUI(); 
     	Body b = new PlugIntelligentBody("PlugIntelligentBody", ui);
     	ui.addBody(b);
