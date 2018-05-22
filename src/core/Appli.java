@@ -1,23 +1,31 @@
 package core;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
+
 import core.UI.UserInterface;
 import core.model.ModelLoader;
 import loader.PluginDescriptor;
+import loader.PluginsLoader;
 import model.Alarm;
 
 public abstract class Appli {
 	private UserInterface userInterface;
 	private ModelLoader modelLoader;
 	private Alarm alarm;
-
+	private PluginsLoader pluginsLoader;
     
     public UserInterface getUserInterface() {
 		return userInterface;
 	}
 
-	public void setUserInterface(UserInterface userInterface) {
-		this.userInterface = userInterface;
+	public void setUserInterface() {
+		try {
+			this.userInterface = pluginsLoader.getDefaultUI();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
 	}
 
 	public ModelLoader getModelLoader() {
@@ -25,7 +33,12 @@ public abstract class Appli {
 	}
 
 	public void setModelLoader(ModelLoader modelLoader) {
-		this.modelLoader = modelLoader;
+		try {
+			this.modelLoader = pluginsLoader.getDefaultModelLoader();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
 	}
 
 	public Alarm getAlarm() {
@@ -36,11 +49,13 @@ public abstract class Appli {
 		this.alarm = alarm;
 	}
 
-	public Appli(UserInterface userInterface, ModelLoader modelLoader, Alarm alarm) {
-		super();
-		this.userInterface = userInterface;
-		this.modelLoader = modelLoader;
-		this.alarm = alarm;
+	public Appli(){
+		try {
+			pluginsLoader = new PluginsLoader();
+		} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
     public void run(){

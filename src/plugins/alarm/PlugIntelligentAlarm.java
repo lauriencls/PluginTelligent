@@ -32,10 +32,10 @@ public class PlugIntelligentAlarm extends AlarmLoader {
 	}
 	
 	
-	//TODO : Ajouter les méthodes dont aura besoin l'interface ou n'importe quel plugin qui utilisera l'Alarm qui sont
+	//TODO : Ajouter les mï¿½thodes dont aura besoin l'interface ou n'importe quel plugin qui utilisera l'Alarm qui sont
 	//dans la classe Alarm
 	
-	//TODO : Ajouter la méthode de test dans une méthode main
+	//TODO : Ajouter la mï¿½thode de test dans une mï¿½thode main
 	
 
 }

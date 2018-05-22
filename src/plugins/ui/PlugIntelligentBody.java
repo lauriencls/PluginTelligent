@@ -19,8 +19,8 @@ public class PlugIntelligentBody extends Body implements ActionListener{
 	private TextField tfCount; 
 	private Button btnCount; 
 	
-	public PlugIntelligentBody(String uniqueName, UserInterface userInterface) {
-		super(uniqueName, userInterface);
+	public PlugIntelligentBody() {
+		super();
 	}
 	
 	@Override
