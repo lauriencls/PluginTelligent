@@ -18,9 +18,15 @@ public class PlugIntelligentModelLoader extends ModelLoader {
 	}
 
 	@Override
-	public List<Model> getRessourceByUniqueName() {
+	public List<Model> getRessourceByName(String className) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void save(List<Model> objects) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

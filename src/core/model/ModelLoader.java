@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ModelLoader {
+	// TODO à commenter
 	private String uniqueName;
 
 	public String getUniqueName() {
@@ -21,10 +22,12 @@ public abstract class ModelLoader {
 	
 	public abstract void load();
 	
+	public abstract void save(List<Model> objects);
+	
 	/*
 	 * Returns a list of objects Model
 	 */
-	public abstract List<Model> getRessourceByUniqueName();
+	public abstract List<Model> getRessourceByName(String className);
 	
 	
 }
