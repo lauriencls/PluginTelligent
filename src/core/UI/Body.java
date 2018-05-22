@@ -59,6 +59,14 @@ public abstract class Body {
 		
 		        
 	}
+
+	public UserInterface getUserInterface() {
+		return userInterface;
+	}
+
+	public void setUserInterface(UserInterface userInterface) {
+		this.userInterface = userInterface;
+	}
 	
 	
 }
