@@ -7,8 +7,8 @@ import model.Alarm;
 
 public class PlugIntelligent extends Appli {
 
-	public PlugIntelligent(UserInterface userInterface, ModelLoader modelLoader, Alarm alarm) {
-		super(userInterface, modelLoader, alarm);
+	public PlugIntelligent() {
+		super();
 	}
 
 	@Override

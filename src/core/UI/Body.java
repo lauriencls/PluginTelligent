@@ -10,10 +10,7 @@ public abstract class Body {
 	private String icon;
 	protected UserInterface userInterface;
 
-	public Body(String uniqueName, UserInterface userInterface) {
-		super();
-		this.uniqueName = uniqueName;
-		this.userInterface = userInterface;
+	public Body() {
 	}
 
 	public Body(String uniqueName) {

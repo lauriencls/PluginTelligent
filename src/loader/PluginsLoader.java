@@ -106,20 +106,11 @@ public class PluginsLoader {
         return null;
     }
     public void initMainPlugin() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
-      	    Class<?> classUI = Class.forName("plugins.ui."+defaultUI);
-            Object ui = classUI.newInstance();
-      	    Class<?> classB = Class.forName("plugins.ui."+defaultBody);
-            Object body = classB.getConstructor(String.class, classUI).newInstance(defaultBody, ui);
-            ((UserInterface) ui).addBody((Body) body);
-      	    Class<?> classM = Class.forName("plugins.ui."+defaultMenu);
-            Object menu = classM.getConstructor(Class.class).newInstance(defaultMenu, ui);
-            ((UserInterface) ui).addMenu((Menu) menu);
       	    Class<?> classA = Class.forName("plugins.alarm."+defaultAlarm);
             Object alarm = classA.getConstructor(Class.class).newInstance(defaultAlarm);
-      	    Class<?> classML = Class.forName("model."+defaultModelLoader);
-            Object modelLoader = classML.newInstance();
+
       	    Class<?> classMain = Class.forName("plugins."+defaultPlugin.getClassName());
-            Object pluginMain = classMain.getConstructor(Class.class).newInstance(ui, alarm, modelLoader);
+            Object pluginMain = classMain.getConstructor(Class.class).newInstance();
             ((PlugIntelligent) pluginMain).run();
     }
     
@@ -142,4 +133,22 @@ public class PluginsLoader {
     	
     	pi.run();*/
     }
+
+	public UserInterface getDefaultUI() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+  	    Class<?> classUI = Class.forName("plugins.ui."+defaultUI);
+        Object ui = classUI.newInstance();
+  	    Class<?> classB = Class.forName("plugins.ui."+defaultBody);
+        Object body = classB.newInstance();
+        ((UserInterface) ui).addBody((Body) body);
+  	    Class<?> classM = Class.forName("plugins.ui."+defaultMenu);
+        Object menu = classM.newInstance();
+        ((UserInterface) ui).addMenu((Menu) menu);
+		return (UserInterface) ui;
+	}
+
+	public ModelLoader getDefaultModelLoader() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+  	    Class<?> classML = Class.forName("model."+defaultModelLoader);
+        Object modelLoader = classML.newInstance();
+		return (ModelLoader) modelLoader;
+	}
 }
