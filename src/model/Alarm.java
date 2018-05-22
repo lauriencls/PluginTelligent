@@ -19,14 +19,14 @@ public class Alarm extends Model {
 	 * @param triggerDateTime : Date de déclenchement
 	 * @param isActive : Détermine si l'alarme est active
 	 */
-	public Alarm(String uniqueName, Message message, Instant triggerDateTime, boolean isActive) {
-		super(uniqueName);
+	public Alarm(Message message, Instant triggerDateTime, boolean isActive) {
 		setupAlarm(message, triggerDateTime, isActive);
 	}
 	
-	public Alarm(String uniqueName) {
-		super(uniqueName);
+	public Alarm(){
+		
 	}
+	
 
 	public Message getMessage() {
 		return message;
@@ -59,12 +59,6 @@ public class Alarm extends Model {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	/**
 	 * Paramétrage de l'alarme
@@ -76,6 +70,13 @@ public class Alarm extends Model {
 		this.message = message;
 		this.triggerDateTime = triggerDateTime;
 		this.isActive = isActive;
+	}
+
+
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -8,22 +8,10 @@ public class Message extends Model {
 	private String body;
 	private Instant createdTime;
 
-	public Message(String uniqueName, String title, String body, Instant createdTime) {
-		super(uniqueName);
+	public Message(String title, String body, Instant createdTime) {
 		this.title = title;
 		this.body = body;
 		this.createdTime = createdTime;
-	}
-
-	public Message(String uniqueName) {
-		super(uniqueName);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public String getTitle() {
@@ -48,6 +36,12 @@ public class Message extends Model {
 
 	public void setCreatedTime(Instant createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
 	}
 
  

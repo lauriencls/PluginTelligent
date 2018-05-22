@@ -1,11 +1,11 @@
 package plugins.alarm;
 
-import core.alarm.Alarm;
+import model.Alarm;
 
 public class PlugIntelligentAlarm extends Alarm {
 
-	public PlugIntelligentAlarm(String uniqueName) {
-		super(uniqueName);
+	public PlugIntelligentAlarm() {
+		
 		// TODO Auto-generated constructor stub
 	}
 
