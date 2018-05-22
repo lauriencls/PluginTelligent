@@ -1,83 +1,111 @@
 package plugins.ui;
 
-import java.awt.Button;
-import java.awt.Dimension;
-import java.awt.Label;
-import java.awt.Panel;
-import java.awt.Rectangle;
-import java.awt.TextField;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import core.UI.Body;
-import core.UI.UserInterface;
 import model.Message;
 
-public class PlugIntelligentBody extends Body implements ActionListener{
-
-	private Label lblCount;    
-	private TextField tfCount; 
-	private Button btnCount; 
+public class PlugIntelligentBody extends Body {
+	
+	JButton     sendMessage;
+    JTextField  messageBox;
+    JTextArea   chatBox;
+    JTextField  usernameChooser;
+    JPanel 		mainPanel;
+    JPanel 		southPanel;
+    Body		pi;
 	
 	public PlugIntelligentBody() {
 		super();
+		pi = this;
 	}
 	
 	@Override
-   public void actionPerformed(ActionEvent evt) {
-      //this.addMessage(new Message());
-   }
-
-	@Override
 	protected void drawTextEntry() {
-		tfCount = new TextField("", 30);
-		this.userInterface.add(tfCount);
-		 
-		btnCount = new Button("Ajouter");   
-		this.userInterface.add(btnCount);
-		
-		btnCount.addActionListener(this);
+
+        southPanel = new JPanel();
+        southPanel.setBackground(Color.BLUE);
+        southPanel.setLayout(new GridBagLayout());
+
+        messageBox = new JTextField(30);
+        messageBox.requestFocusInWindow();
+
+        sendMessage = new JButton("Ajouter Message");
+        sendMessage.addActionListener(new sendMessageButtonListener());
+        
+
+        GridBagConstraints left = new GridBagConstraints();
+        left.anchor = GridBagConstraints.LINE_START;
+        left.fill = GridBagConstraints.HORIZONTAL;
+        left.weightx = 512.0D;
+        left.weighty = 1.0D;
+
+        GridBagConstraints right = new GridBagConstraints();
+        right.insets = new Insets(0, 10, 0, 0);
+        right.anchor = GridBagConstraints.LINE_END;
+        right.fill = GridBagConstraints.NONE;
+        right.weightx = 1.0D;
+        right.weighty = 1.0D;
+
+        southPanel.add(messageBox, left);
+        southPanel.add(sendMessage, right);
+
+        mainPanel.add(BorderLayout.SOUTH, southPanel);
+        this.userInterface.getFrame().add(mainPanel);
 		
 	}
 
 	@Override
 	protected void drawListMessages() {
-		Label lab1 = new Label("Message 1");
-		Dimension dDim = lab1.getSize();
-		Rectangle fRect = this.userInterface.getBounds();
-		lab1.setLocation(fRect.x + ((fRect.width - dDim.width) / 2),
-                fRect.y + ((fRect.height - dDim.height) / 2));
-		this.userInterface.add(lab1);
-		
-		Label lab2 = new Label("Message 2");
-		dDim = lab2.getSize();
-		fRect = this.userInterface.getBounds();
-		lab2.setLocation(fRect.x + ((fRect.width - dDim.width) / 2),
-                fRect.y + ((fRect.height - dDim.height) / 2));
-		this.userInterface.add(lab2);
-		
-		Label lab3 = new Label("Message 3");
-		dDim = lab3.getSize();
-		fRect = this.userInterface.getBounds();
-		lab3.setLocation(fRect.x + ((fRect.width - dDim.width) / 2),
-                fRect.y + ((fRect.height - dDim.height) / 2));
-		this.userInterface.add(lab3);
+		mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        
+		chatBox = new JTextArea();
+        chatBox.setEditable(false);
+        chatBox.setFont(new Font("Serif", Font.PLAIN, 15));
+        chatBox.setLineWrap(true);
+
+        mainPanel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
 	}
 
 	@Override
 	protected void drawChannelPanel() {
-		Panel pnl = new Panel();
-		Label lab = new Label("Liste des channels");
-		pnl.add(lab);
-		
-		this.userInterface.add(pnl);
 		
 	}
 
 	@Override
-	protected void addMessage(Message message) {
-		// TODO Auto-generated method stub
-		
+	public void addMessage(Message message) {
+		chatBox.append( message.getBody() + " créé le " + message.getCreatedTime().toString()
+                + "\n");
 	}
+	
+	class sendMessageButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            if (messageBox.getText().length() < 1) {
+                // do nothing
+            } else {
+            	Message m = new Message("title", messageBox.getText(), Instant.now());
+                pi.addMessage(m);
+                messageBox.setText("");
+            }
+            messageBox.requestFocusInWindow();
+        }
+    }
 
 }

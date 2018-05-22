@@ -1,6 +1,10 @@
 package core.UI;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JSplitPane;
 
 import model.Message;
 
@@ -26,7 +30,16 @@ public abstract class Body {
 		this.uniqueName = uniqueName;
 	}
 	
+	public UserInterface getUserInterface() {
+		return userInterface;
+	}
+
+	public void setUserInterface(UserInterface userInterface) {
+		this.userInterface = userInterface;
+	}
+
 	protected void drawBody(){
+		
 		drawChannelPanel();
 		drawListMessages();
 		drawTextEntry();
@@ -38,16 +51,13 @@ public abstract class Body {
 	
 	protected abstract void drawChannelPanel();
 	
-	protected abstract void addMessage(Message message);
+	public abstract void addMessage(Message message);
 	
-	public void draw(){
-		this.userInterface.setLayout(new FlowLayout());
-		
+	public void draw(){		
 		drawBody();
 		
-		this.userInterface.setTitle("PlugIntelligent");  
-		this.userInterface.setSize(250, 100);        
-		this.userInterface.setVisible(true);         
+		
+		        
 	}
 	
 	

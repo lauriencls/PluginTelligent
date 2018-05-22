@@ -1,16 +1,31 @@
 package core.UI;
 
+import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UserInterface extends Frame {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import model.Message;
+
+public abstract class UserInterface {
 	protected List<Body> bodies;
+	protected JFrame frame;
 	
 	public UserInterface() {
 		super();
 		this.bodies = new ArrayList<>();
 		this.menus = new ArrayList<>();
+		this.frame = new JFrame();
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 
 	protected List<Menu> menus;
@@ -48,16 +63,30 @@ public abstract class UserInterface extends Frame {
 	public void display(){
 		displayMenu();
 		displayBody();
+		
+		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		//populateMessage()
 	}
-	
-	public abstract void showBody();
-	
+		
 	public void addBody(Body b){
 		this.bodies.add(b);
 	}
 	
 	public void addMenu(Menu m){
 		this.menus.add(m);
+	}
+	
+	public void populateMessage(List<Message> messages){
+		for(Message m:
+			messages){
+			for(Body b:bodies){
+				b.addMessage(m);
+			}
+		}
 	}
 	
 }
