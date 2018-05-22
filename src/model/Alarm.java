@@ -7,7 +7,6 @@ import core.model.Model;
  * Classe correspondant à une alarme. Une alarme est liée à un message, et est déclenchée à une date si elle est active
  */
 public class Alarm extends Model {
-	private String uniqueName;
 	private Message message;
 	private Instant triggerDateTime;
 	private boolean isActive;
@@ -23,9 +22,7 @@ public class Alarm extends Model {
 		setupAlarm(message, triggerDateTime, isActive);
 	}
 	
-	public Alarm(){
-		
-	}
+	public Alarm(){}
 	
 
 	public Message getMessage() {
@@ -42,14 +39,6 @@ public class Alarm extends Model {
 
 	public void setTriggerDateTime(Instant triggerDateTime) {
 		this.triggerDateTime = triggerDateTime;
-	}
-
-	public String getUniqueName() {
-		return uniqueName;
-	}
-
-	public void setUniqueName(String uniqueName) {
-		this.uniqueName = uniqueName;
 	}
 
 	public boolean isActive() {
