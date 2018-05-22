@@ -1,14 +1,11 @@
 package loader;
 
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
 import core.UI.Body;
 import core.UI.Menu;
 import core.UI.UserInterface;
@@ -50,7 +47,8 @@ public class PluginsLoader {
         		String dName = (String) d;
             	dList.add(dName);
           	  }
-              Class<?> interf = Class.forName(className);
+        	  String classNamePack = type!=null ? "plugins."+type+"."+className : "plugins."+className ;
+              Class<?> interf = Class.forName(classNamePack);
         		PluginDescriptor pd = new PluginDescriptor(type, name, className, interf, dList);
         		loaded.put(className, pd);
       	  }
@@ -69,10 +67,8 @@ public class PluginsLoader {
         return null;
     }
     
-    public List<PluginDescriptor> getAllPluginsByType(String type, Class<?> interf){
-    	ArrayList<PluginDescriptor> allPlugins = new ArrayList<>();
-    	allPlugins.add(new PluginDescriptor("afficheur", "Un afficheur custom", "plugins.MonAfficheur", interf, new ArrayList<String>())); 
-    	return allPlugins;
+    public Map<String, PluginDescriptor> getAllPluginsByType(){
+    	return this.loaded;
     }
     
     public Object getPlugin(PluginDescriptor plugin) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
