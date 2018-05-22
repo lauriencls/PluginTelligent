@@ -1,5 +1,8 @@
 package core.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ModelLoader {
 	private String uniqueName;
 
@@ -17,4 +20,11 @@ public abstract class ModelLoader {
 	}
 	
 	public abstract void load();
+	
+	/*
+	 * Returns a list of objects Model
+	 */
+	public abstract List<Model> getRessourceByUniqueName();
+	
+	
 }

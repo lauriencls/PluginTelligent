@@ -1,18 +1,30 @@
 package plugins.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import core.model.Model;
 import core.model.ModelLoader;
 
 public class PlugIntelligentModelLoader extends ModelLoader {
 
 	public PlugIntelligentModelLoader(String uniqueName) {
 		super(uniqueName);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void load() {
-		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public List<Model> getRessourceByUniqueName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+	
+	
 
 }
