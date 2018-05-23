@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import core.Appli;
 import core.UI.Body;
@@ -104,7 +105,18 @@ public class PluginsLoader {
         return null;
     }
     
-    public Map<String, PluginDescriptor> getAllPluginsByType(){
+    public Map<String, PluginDescriptor> getAllPluginsByType(String type){
+        Map<String, PluginDescriptor> byType = new HashMap<String, PluginDescriptor>();
+
+      	for(Entry<String, PluginDescriptor> entry : loaded.entrySet()) {
+      		if(entry.getValue().equals(type)){
+      			byType.put(entry.getKey(), entry.getValue());
+      		}
+      	}
+    	return byType;
+    }
+    
+    public Map<String, PluginDescriptor> getAllPlugins(){
     	return this.loaded;
     }
     
