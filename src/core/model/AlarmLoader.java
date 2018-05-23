@@ -13,17 +13,34 @@ public abstract class AlarmLoader {
 	/**
 	 * Créée l'alarme dont les informations sont données en paramètre
 	 */
-	public abstract Alarm createAlarm(Message message, Instant triggerDateTime, boolean isActive);
+	public Alarm createAlarm(Message message, Instant triggerDateTime, boolean isActive) {
+		Alarm alarm = new Alarm(message, triggerDateTime, isActive);
+		if(alarm.isActive()) {
+			triggerAlarm(alarm);	
+		}
+		return alarm;
+	}
 	
 	/**
 	 * Modifie l'heure de déclenchement de l'alarme
 	 */
-	public abstract void setupAlarmTriggerDate(Alarm alarm, Instant triggerDateTime);
+	public void setupAlarmTriggerDate(Alarm alarm, Instant triggerDateTime) {
+		if(Instant.now().isAfter(triggerDateTime)) {
+			alarm.setTriggerDateTime(triggerDateTime);	
+		} else {
+			System.out.println("La date donnée est inférieure à la date actuelle");
+		}	
+	}
 	
 	/**
 	 * Change l'état d'activation de l'alarme (activée/désactivée)
 	 */
-	public abstract void changeActivationAlarm(Alarm alarm);
+	public void changeActivationAlarm(Alarm alarm) {
+		alarm.setActive(!alarm.isActive());
+		if(alarm.isActive()) {
+			triggerAlarm(alarm);
+		}
+	}
 	
 	
 	/**
