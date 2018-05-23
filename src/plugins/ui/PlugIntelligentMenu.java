@@ -1,7 +1,16 @@
 package plugins.ui;
 
+import java.util.Map;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 import core.UI.Menu;
 import core.UI.UserInterface;
+import loader.PluginsLoader;
+import loader.PluginDescriptor;
 
 public class PlugIntelligentMenu extends Menu {
 
@@ -11,9 +20,17 @@ public class PlugIntelligentMenu extends Menu {
 	}
 
 	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-
+	public void drawMenu() {
+		JFrame myframe = this.userInterface.getFrame();
+		JMenuBar menubar = new JMenuBar();
+		for(Map.Entry<String,PluginDescriptor> pl:PluginsLoader.getInstance().getAllPluginsByType().entrySet()){
+			
+		}
+		JMenu menu = new JMenu("Liste des plugins");
+		JMenuItem size = new JMenuItem("size");
+		menu.add(size);
+		menubar.add(menu);
+		myframe.setJMenuBar(menubar);
 	}
 
 }

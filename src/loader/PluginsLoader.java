@@ -14,7 +14,6 @@ import core.UI.Menu;
 import core.UI.UserInterface;
 import core.model.AlarmLoader;
 import core.model.ModelLoader;
-import model.Alarm;
 
 
 import org.json.simple.JSONArray;
@@ -129,20 +128,6 @@ public class PluginsLoader {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ParseException {
     	PluginsLoader p = new PluginsLoader();
     	p.initMainPlugin();
-    	/*UserInterface ui = new PlugIntelligentUI(); 
-    	Body b = new PlugIntelligentBody("PlugIntelligentBody", ui);
-    	ui.addBody(b);
-    	Menu m = new PlugIntelligentMenu("PlugIntelligentMenu", ui);
-    	ui.addMenu(m);
-    	
-    	/*Alarm a = new PlugIntelligentAlarm();
-    	
-    	ModelLoader ml = new PlugIntelligentModelLoader("PlugIntelligentModelLoader");
-    	
-    	
-    	PlugIntelligent pi = new PlugIntelligent(ui,ml,a);
-    	
-    	pi.run();*/
     }
 
 	public UserInterface getDefaultUI() {

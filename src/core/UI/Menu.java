@@ -2,7 +2,7 @@ package core.UI;
 
 public abstract class Menu {
 	private String uniqueName;
-	private UserInterface userInterface;
+	protected UserInterface userInterface;
 
 	public Menu() {
 	}
@@ -20,5 +20,9 @@ public abstract class Menu {
 		this.uniqueName = uniqueName;
 	}
 	
-	public abstract void draw();
+	public void draw(){
+		drawMenu();
+	}
+	
+	public abstract void drawMenu();
 }
