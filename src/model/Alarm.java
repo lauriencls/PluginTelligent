@@ -4,7 +4,7 @@ import java.time.Instant;
 import core.model.Model;
 
 /**
- * Classe correspondant à une alarme. Une alarme est liée à un message, et est déclenchée à une date si elle est active
+ * Classe correspondant Ã  une alarme. Une alarme est liÃ©e Ã  un message, et est dÃ©clenchÃ©e Ã  une date si elle est active
  */
 public class Alarm extends Model {
 	private Message message;
@@ -14,9 +14,9 @@ public class Alarm extends Model {
 	/**
 	 * Constructeur d'une alarme
 	 * @param uniqueName : Nom de l'alarme
-	 * @param message : Message lié
-	 * @param triggerDateTime : Date de déclenchement
-	 * @param isActive : Détermine si l'alarme est active
+	 * @param message : Message liÃ©
+	 * @param triggerDateTime : Date de dÃ©clenchement
+	 * @param isActive : DÃ©termine si l'alarme est active
 	 */
 	public Alarm(Message message, Instant triggerDateTime, boolean isActive) {
 		setupAlarm(message, triggerDateTime, isActive);
@@ -50,10 +50,10 @@ public class Alarm extends Model {
 	}
 	
 	/**
-	 * Paramétrage de l'alarme
-	 * @param message : Message affiché par l'alarme
-	 * @param triggerDateTime : Date de déclencheemnt de l'alarme
-	 * @param isActive : Détermine si l'alarme est active
+	 * ParamÃ¨trage de l'alarme
+	 * @param message : Message affichÃ© par l'alarme
+	 * @param triggerDateTime : Date de dÃ©clencheemnt de l'alarme
+	 * @param isActive : DÃ©termine si l'alarme est active
 	 */
 	private void setupAlarm(Message message, Instant triggerDateTime, boolean isActive) {
 		this.message = message;

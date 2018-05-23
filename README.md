@@ -21,7 +21,8 @@ Une fois le projet stocké localement, à l'aide de votre IDE importez le projet
 Pour que votre IDE interprète correctement le projet, il faut que vous importiez ce projet en tant que maven, selon votre IDE la méthode sera différente, mais elle devrait toute vous amener à indique le fichier pom.xml à l'IDE.
 
 ## Test du projet
-Pour tester l'application il vous faut exécuter le main contenu par la classe plugin loader.
+Pour tester l'application il vous faut exécuter le main contenu par la classe PluginsLoader, du package loader.
 L'application chargera automatiquement la configuration contenue dans le fichier config.json afin de savoir quel plugin elle doit charger.
- 
+Le plugin par défault, permet de créer des alarmes. Il n'est pas abouti et pour pouvoir le tester, vous allez devoir utiliser l'UI pour créer une alarme, puis aller modifier dans le model.jso, la trigger date, afin qu'elle corresponde à la date souhaitée moinbs deux heures, question de fuseaux horaires.
+Puis relancer l'application et attendez la sonnerie.
 
