@@ -24,8 +24,17 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class PluginsLoader {
+    // **************************************************
+    // Instance
+    // **************************************************
     private static String filename = "src/ressource/config.json";
+    // **************************************************
+    // Map contenant les plugins du fichiers de config
+    // **************************************************
     private Map<String, PluginDescriptor> loaded = new HashMap<String, PluginDescriptor>();
+    // **************************************************
+    // Plugins par défaut
+    // **************************************************
     private PluginDescriptor defaultPlugin;
     private String defaultUI;
     private String defaultMenu;
