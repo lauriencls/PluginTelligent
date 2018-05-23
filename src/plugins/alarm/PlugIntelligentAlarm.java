@@ -26,7 +26,7 @@ public class PlugIntelligentAlarm extends AlarmLoader {
 		if(!alarm.getTriggerDateTime().isBefore(Instant.now(Clock.systemUTC()))) {
 			while(!alarm.getTriggerDateTime().equals(Instant.now(Clock.systemUTC())))
 			{
-				//On attend d'avoir atteint la date à laquelle l'alarme doit sonner
+				//On attend d'avoir atteint la date ï¿½ laquelle l'alarme doit sonner
 			}
 					
 			//Sonnerie de l'alarme
@@ -38,16 +38,4 @@ public class PlugIntelligentAlarm extends AlarmLoader {
 		
 		
 	}
-	
-	public static void main(String[] args){
-		PlugIntelligentAlarm pia = new PlugIntelligentAlarm();
-		Instant dateSonnerie = Instant.now();
-		Message message = new Message("test", "Je suis un test", dateSonnerie);
-		Alarm alarm = pia.createAlarm(message, dateSonnerie, false);
-		pia.setupAlarmTriggerDate(alarm, dateSonnerie.plusSeconds(5));
-		pia.changeActivationAlarm(alarm);
-		pia.triggerAlarm(alarm);
-	}
-	
-
 }

@@ -21,16 +21,5 @@ public class PlugIntelligentUI extends UserInterface {
 	public PlugIntelligentUI(){
 		super();
 	}
-	
-	public static void main(String[] args) {
-    	UserInterface ui = new PlugIntelligentUI(); 
-    	Body b = new PlugIntelligentBody();
-    	b.setUserInterface(ui);
-    	ui.addBody(b);
-    	Menu m = new PlugIntelligentMenu();
-    	ui.addMenu(m);
-    	
-    	ui.display();
-    }
 
 }

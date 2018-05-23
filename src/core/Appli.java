@@ -45,10 +45,16 @@ public abstract class Appli {
 		return modelLoader;
 	}
 
+	/*
+	 * Définit le ModelLoader par défaut
+	 */
 	public void setModelLoader() {	
 			this.modelLoader = PluginsLoader.getInstance().getDefaultModelLoader();
 	}
 	
+	/*
+	 * Permet de redéfinir les plugins de type ModelLoader
+	 */
 	public void setModelLoader(Object o) {
 		this.modelLoader = (ModelLoader) o;
 }
@@ -67,13 +73,19 @@ public abstract class Appli {
 
 	public Appli(){
 	}
-	
+
+	/*
+	 * Recharge l'appli et les plugins
+	 */
 	public void reload(){
     	this.modelLoader.load();
     	//this.alarmLoader.load();
     	this.userInterface.reload();
     }
 
+	/*
+	 * Démarre l'appli 
+	 */
     public void run(){
 		this.setUserInterface();
 		this.setModelLoader();

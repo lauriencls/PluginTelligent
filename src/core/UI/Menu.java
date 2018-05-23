@@ -25,22 +25,9 @@ public abstract class Menu {
 		this.uniqueName = uniqueName;
 	}
 
-	public String getUniqueName() {
-		return uniqueName;
-	}
-
-	public void setUniqueName(String uniqueName) {
-		this.uniqueName = uniqueName;
-	}
-	
-	public UserInterface getUserInterface() {
-		return userInterface;
-	}
-
-	public void setUserInterface(UserInterface userInterface) {
-		this.userInterface = userInterface;
-	}
-
+	/*
+	 * Permet de construire le menu de base
+	 */
 	public void draw(){
 		JFrame myframe = this.userInterface.getFrame();
 		JMenuBar menubar = new JMenuBar();
@@ -51,6 +38,9 @@ public abstract class Menu {
 		drawMenu();
 	}
 
+	/*
+	 * Permet d'ajouter un élément au Menu
+	 */
 	public void addMenuToMenuBar(JMenuBar menubar, String typePlugin, String menuTitle) {
 		JMenu menu;
 		menu = new JMenu(menuTitle);
@@ -87,5 +77,21 @@ public abstract class Menu {
 			JOptionPane.showMessageDialog(frame, "Chargement du plugin : " + this.pluginDescriptor.getNom(), "Chargement du plugin", JOptionPane.PLAIN_MESSAGE);
 			PluginsLoader.getInstance().swapPlugins(pluginDescriptor);
 	    }
+	}
+	
+	public String getUniqueName() {
+		return uniqueName;
+	}
+
+	public void setUniqueName(String uniqueName) {
+		this.uniqueName = uniqueName;
+	}
+	
+	public UserInterface getUserInterface() {
+		return userInterface;
+	}
+
+	public void setUserInterface(UserInterface userInterface) {
+		this.userInterface = userInterface;
 	}
 }

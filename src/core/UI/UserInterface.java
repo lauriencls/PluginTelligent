@@ -16,6 +16,7 @@ public abstract class UserInterface {
 	protected List<Body> bodies;
 	protected JFrame frame;
 	protected Appli appli;
+	protected List<Menu> menus;
 	
 	public UserInterface() {
 		super();
@@ -23,47 +24,11 @@ public abstract class UserInterface {
 		this.menus = new ArrayList<>();
 		this.frame = new JFrame();
 	}
-
-	public JFrame getFrame() {
-		return frame;
-	}
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}
-
-	public Appli getAppli() {
-		return appli;
-	}
-
-	public void setAppli(Appli appli) {
-		this.appli = appli;
-		
-	}
-
-	protected List<Menu> menus;
 	
 	public UserInterface(List<Body> bodies, List<Menu> menus) {
 		super();
 		this.bodies = bodies;
 		this.menus = menus;
-	}
-	public List<Body> getBodies() {
-		return bodies;
-	}
-	public void setBodies(List<Body> bodies) {
-		this.bodies = bodies;
-	}
-	public List<Menu> getMenus() {
-		return menus;
-	}
-	public void setMenus(List<Menu> menus) {
-		this.menus = menus;
-	}
-	
-	public void setUserInterfaceToMenu() {
-		for(Menu m:menus){
-			m.setUserInterface(this);
-		}
 	}
 	
 	private void displayMenu() {
@@ -78,6 +43,9 @@ public abstract class UserInterface {
 		}
 	}
 	
+	/*
+	 * Permet d'afficher l'interface utilisateur
+	 */
 	public void display(){
 		displayMenu();
 		displayBody();
@@ -89,7 +57,50 @@ public abstract class UserInterface {
 		
 		populateMessage(this.appli.getModelLoader().getRessourceByName("Message"));
 	}
+	
+	private void populateMessage(List<Model> list){
+		for(Model m:
+			list){
+			for(Body b:bodies){
+				b.addMessage((Message) m);
+			}
+		}
+	}
+
+	/*
+	 * Permet de recharger l'interface utilisateur
+	 */
+	public void reload() {
+		this.frame.setVisible(false);
 		
+		this.frame = new JFrame();
+		
+		display();
+	}
+
+	/*
+	 * S'ajoute lui même au menu
+	 */
+	public void setUserInterfaceToMenu() {
+		for(Menu m:menus){
+			m.setUserInterface(this);
+		}
+	}
+	
+	public List<Body> getBodies() {
+		return bodies;
+	}
+	public void setBodies(List<Body> bodies) {
+		this.bodies = bodies;
+	}
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+	
+	
 	public void addBody(Body b){
 		this.bodies.clear();
 		this.bodies.add(b);
@@ -100,22 +111,19 @@ public abstract class UserInterface {
 		this.menus.add(m);
 	}
 	
-	public void populateMessage(List<Model> list){
-		for(Model m:
-			list){
-			for(Body b:bodies){
-				b.addMessage((Message) m);
-			}
-		}
+	public JFrame getFrame() {
+		return frame;
 	}
-
-	public void reload() {
-		this.frame.setVisible(false);
-		
-		this.frame = new JFrame();
-		
-		display();
-		
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 	
+	public Appli getAppli() {
+		return appli;
+	}
+	
+	public void setAppli(Appli appli) {
+		this.appli = appli;
+		
+	}
 }

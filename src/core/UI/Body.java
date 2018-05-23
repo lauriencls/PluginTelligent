@@ -22,21 +22,6 @@ public abstract class Body {
 		this.uniqueName = uniqueName;
 	}
 
-	public String getUniqueName() {
-		return uniqueName;
-	}
-
-	public void setUniqueName(String uniqueName) {
-		this.uniqueName = uniqueName;
-	}
-
-	protected void drawBody(){
-		
-		drawChannelPanel();
-		drawListMessages();
-		drawTextEntry();
-	}
-	
 	protected abstract void drawTextEntry();
 	
 	protected abstract void drawListMessages();
@@ -44,12 +29,22 @@ public abstract class Body {
 	protected abstract void drawChannelPanel();
 	
 	public abstract void addMessage(Message message);
+
+	protected void drawBody(){
+		drawChannelPanel();
+		drawListMessages();
+		drawTextEntry();
+	}
 	
+	/*
+	 * Permet de construire le corps de l'interface utilisateur. 
+	 */
 	public void draw(){		
 		drawBody();
 		        
 	}
 
+	
 	public UserInterface getUserInterface() {
 		return userInterface;
 	}
@@ -58,4 +53,11 @@ public abstract class Body {
 		this.userInterface = userInterface;
 	}
 	
+	public String getUniqueName() {
+		return uniqueName;
+	}
+	
+	public void setUniqueName(String uniqueName) {
+		this.uniqueName = uniqueName;
+	}
 }
