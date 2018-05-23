@@ -23,8 +23,17 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class PluginsLoader {
+    // **************************************************
+    // Instance
+    // **************************************************
     private static String filename = "src/ressource/config.json";
+    // **************************************************
+    // Map contenant les plugins du fichiers de config
+    // **************************************************
     private Map<String, PluginDescriptor> loaded = new HashMap<String, PluginDescriptor>();
+    // **************************************************
+    // Plugins par défaut
+    // **************************************************
     private PluginDescriptor defaultPlugin;
     private String defaultUI;
     private String defaultMenu;
@@ -32,7 +41,12 @@ public class PluginsLoader {
     private String defaultAlarm;
     private String defaultModelLoader;
     private Appli appli;
-
+    
+    /**
+    * constructeur
+    *
+    * le fichier de configuration est chargé dans le constructeur
+    */
     private PluginsLoader(){
     	JSONParser parser = new JSONParser();
     	try {
@@ -77,17 +91,30 @@ public class PluginsLoader {
 			e.printStackTrace();
 		}
     }
-    //Holder
+    
+    /**
+    * Holder
+    */
     private static class PluginsLoaderHolder
     {       
         private final static PluginsLoader instance = new PluginsLoader();
     }
- 
+    
+    /**
+    * Retourne une instance de la classe
+    *
+    * @return PluginsLoader
+    */
     public static PluginsLoader getInstance()
     {
         return PluginsLoaderHolder.instance;
     }
     
+    /**
+    * Retourne un plugin en fonction de sa clé (nom de classe) et de sa classe
+    *
+    * @return Object
+    */
     public Object getPlugin(String key, Class<?> plugin) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         Class<?> c = Class.forName(key);
         Object o = c.newInstance();
@@ -98,6 +125,11 @@ public class PluginsLoader {
         return null;
     }
     
+    /**
+    * Retourne la liste de tous les plugins qui sont du type passé en paramètre
+    *
+    * @return Map<String, PluginDescriptor>
+    */
     public Map<String, PluginDescriptor> getAllPluginsByType(String type){
         Map<String, PluginDescriptor> byType = new HashMap<String, PluginDescriptor>();
 
@@ -109,10 +141,20 @@ public class PluginsLoader {
     	return byType;
     }
     
+    /**
+    * Retourne la liste de tous les plugins, soit la map loaded, chargé dans le constructeur
+    *
+    * @return Map<String, PluginDescriptor>
+    */
     public Map<String, PluginDescriptor> getAllPlugins(){
     	return this.loaded;
     }
     
+    /**
+    * Charge un plugin, c'est à dire créer une instance et la retourne
+    *
+    * @return Object
+    */
     public Object loadPlugin(PluginDescriptor plugin) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
   	  	String classNamePack = plugin.getType()!=null ? "plugins."+plugin.getType()+"."+plugin.getClassName() : "plugins."+plugin.getClassName();
         Class<?> c = Class.forName(classNamePack);
@@ -142,90 +184,148 @@ public class PluginsLoader {
     	
     	this.appli.reload();
     }
-    public Appli initMainPlugin() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
-    	Class<?> classMain = Class.forName("plugins."+defaultPlugin.getClassName());
-            Object pluginMain = classMain.newInstance();
+    
+    /**
+    * Chargement du plugin par défaut
+    *
+    * @return Appli
+    */
+    public Appli initMainPlugin(){
+    	Class<?> classMain = null;
+		try {
+			classMain = Class.forName("plugins."+defaultPlugin.getClassName());
+		} catch (ClassNotFoundException e) {
+			System.out.println("Problème dans le nom de classe du plugin principal par défaut" +e.getMessage());
+			e.printStackTrace();
+		}
+            Object pluginMain = null;
+			try {
+				pluginMain = classMain.newInstance();
+			} catch (InstantiationException | IllegalAccessException e) {
+				System.out.println("Problème lors de l'instanciation du plugin principal par défaut" +e.getMessage());
+				e.printStackTrace();
+			}
             ((Appli) pluginMain).run();
             this.appli = ((Appli) pluginMain);
             return (Appli) pluginMain;
     }
     
  // The entry main() method
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ParseException {
+    public static void main(String[] args) {
     	PluginsLoader p = PluginsLoader.getInstance();
     	p.initMainPlugin();
     }
-
+    
+    /**
+    * Retourne le plugin d'ui par défaut après l'avoir chargé
+    *
+    * @return UserInterface
+    */
 	public UserInterface getDefaultUI() {
   	    Class<?> classUI = null;
 		try {
-			classUI = Class.forName("plugins.ui."+defaultUI);
+			PluginDescriptor plui = loaded.get(defaultUI);
+			classUI = Class.forName("plugins."+plui.getType()+"."+defaultUI);
 		} catch (ClassNotFoundException e) {
+
+			System.out.println("Problème dans le nom de classe du l'ui par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
         Object ui = null;
 		try {
 			ui = classUI.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
+
+			System.out.println("Problème lors de l'instanciation de l'ui par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
   	    Class<?> classB = null;
 		try {
-			classB = Class.forName("plugins.ui."+defaultBody);
+			PluginDescriptor plbody = loaded.get(defaultBody);
+			classB = Class.forName("plugins."+plbody.getType()+"."+defaultBody);
 		} catch (ClassNotFoundException e) {
+
+			System.out.println("Problème dans le nom de classe du body par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
         Object body = null;
 		try {
 			body = classB.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
+
+			System.out.println("Problème lors de l'instanciation du body par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
         ((UserInterface) ui).addBody((Body) body);
   	    Class<?> classM = null;
 		try {
-			classM = Class.forName("plugins.ui."+defaultMenu);
+			PluginDescriptor plmenu = loaded.get(defaultMenu);
+			classM = Class.forName("plugins."+plmenu.getType()+"."+defaultMenu);
 		} catch (ClassNotFoundException e) {
+
+			System.out.println("Problème dans le nom de classe du menu par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
         Object menu = null;
 		try {
 			menu = classM.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
+
+			System.out.println("Problème lors de l'instanciation du menu par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
         ((UserInterface) ui).addMenu((Menu) menu);
         ((Body) body).setUserInterface((UserInterface) ui);
 		return (UserInterface) ui;
 	}
-
+	
+	/**
+    * Retourne le plugin model loader par défaut après l'avoir chargé
+    *
+    * @return ModelLoader
+    */
 	public ModelLoader getDefaultModelLoader() {
   	    Class<?> classML = null;
 		try {
-			classML = Class.forName("plugins.model."+defaultModelLoader);
+			PluginDescriptor plmodeloader = loaded.get(defaultModelLoader);
+			classML = Class.forName("plugins."+plmodeloader.getType()+"."+defaultModelLoader);
 		} catch (ClassNotFoundException e) {
+
+			System.out.println("Problème dans le nom de classe du model loader par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
         Object modelLoader = null;
 		try {
 			modelLoader = classML.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
+
+			System.out.println("Problème lors de l'instanciation du model loader par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
 		return (ModelLoader) modelLoader;
 	}
 
+	/**
+    * Retourne le plugin alarm loader par défaut après l'avoir chargé
+    *
+    * @return AlarmLoader
+    */
 	public AlarmLoader getDefaultAlarm() {
   	    Class<?> classA = null;
 		try {
-			classA = Class.forName("plugins.alarm."+defaultAlarm);
+			PluginDescriptor plalarm = loaded.get(defaultAlarm);
+			classA = Class.forName("plugins."+plalarm.getType()+"."+defaultAlarm);
 		} catch (ClassNotFoundException e) {
+
+			System.out.println("Problème dans le nom de classe de l'alarm par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
         Object alarm = null;
 		try {
 			alarm = classA.newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException e) {
+
+			System.out.println("Problème lors de l'instanciation de l'alarm par défaut" +e.getMessage());
 			e.printStackTrace();
 		}
 		return (AlarmLoader) alarm;

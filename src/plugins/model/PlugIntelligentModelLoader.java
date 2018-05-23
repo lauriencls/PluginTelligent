@@ -32,7 +32,6 @@ public class PlugIntelligentModelLoader extends ModelLoader {
 		try {
 			JSONObject obj = (JSONObject) parser.parse(new FileReader(filename));
 			JSONArray JSONAlarms = (JSONArray) obj.get("Alarms");
-			System.out.println(obj);
 			for (Object a : JSONAlarms)
 			{
 				JSONObject jsonAlarm = (JSONObject) a;
@@ -107,11 +106,6 @@ public class PlugIntelligentModelLoader extends ModelLoader {
 
 	}
 
-	public static void main(String[] args){
-		PlugIntelligentModelLoader p = new PlugIntelligentModelLoader();
-		p.load();
-		p.save();
-	}
 
 
 
