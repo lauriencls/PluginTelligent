@@ -9,6 +9,7 @@ public class PluginDescriptor {
 	private Class<?> interf;
 	//List of class Name
 	private List<String> dependencies;
+	private boolean loaded;
 
 	public PluginDescriptor(String type, String nom, String className, Class<?> interf, List<String> dependencies) {
 		super();
@@ -48,5 +49,11 @@ public class PluginDescriptor {
 	}
 	public void setDependencies(List<String> dependencies) {
 		this.dependencies = dependencies;
+	}
+	public boolean isLoaded() {
+		return loaded;
+	}
+	public void setLoaded(boolean loaded) {
+		this.loaded = loaded;
 	}
 }

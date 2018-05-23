@@ -21,16 +21,7 @@ public class PlugIntelligentMenu extends Menu {
 
 	@Override
 	public void drawMenu() {
-		JFrame myframe = this.userInterface.getFrame();
-		JMenuBar menubar = new JMenuBar();
-		for(Map.Entry<String,PluginDescriptor> pl:PluginsLoader.getInstance().getAllPluginsByType().entrySet()){
-			
-		}
-		JMenu menu = new JMenu("Liste des plugins");
-		JMenuItem size = new JMenuItem("size");
-		menu.add(size);
-		menubar.add(menu);
-		myframe.setJMenuBar(menubar);
+		
 	}
 
 }

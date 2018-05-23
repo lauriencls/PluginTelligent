@@ -36,6 +36,12 @@
 		    "dependencies":[]
 		},
 		{
+		    "type":"alarm",
+		    "name":"C'est mon alarm",
+		    "className":"RobinAlarm",
+		    "dependencies":[]
+		},
+		{
 		    "type":"model",
 		    "name":"PlugIntelligent model loader",
 		    "className":"PlugIntelligentModelLoader",

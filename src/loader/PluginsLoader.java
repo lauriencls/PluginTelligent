@@ -31,6 +31,7 @@ public class PluginsLoader {
     private String defaultBody;
     private String defaultAlarm;
     private String defaultModelLoader;
+    private Appli appli;
 
     private PluginsLoader(){
     	JSONParser parser = new JSONParser();
@@ -69,18 +70,10 @@ public class PluginsLoader {
         		    defaultPlugin=pd;
           		}
       	  }
-      	/*for(Entry<String, PluginDescriptor> entry : loaded.entrySet()) {
-      	    PluginDescriptor value = entry.getValue();
-      	    if(value.getDependencies()!=null){
-	      	    for(String dependencieName : value.getDependencies()){
-	      	    	Object o = loadPlugin(loaded.get(dependencieName));	
-		      	}
-      	    }
-      	}*/
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -109,7 +102,7 @@ public class PluginsLoader {
         Map<String, PluginDescriptor> byType = new HashMap<String, PluginDescriptor>();
 
       	for(Entry<String, PluginDescriptor> entry : loaded.entrySet()) {
-      		if(entry.getValue().equals(type)){
+      		if(entry.getValue().getType()!=null && entry.getValue().getType().equals(type)){
       			byType.put(entry.getKey(), entry.getValue());
       		}
       	}
@@ -129,16 +122,37 @@ public class PluginsLoader {
         }
         return null;
     }
+    public void swapPlugins(PluginDescriptor plugin){
+    	try {
+			Object o = loadPlugin(plugin);
+			switch(plugin.getType()){
+				case "ui":
+					appli.setUserInterface(o);
+					break;
+				case "model":
+					appli.setModelLoader(o);
+					break;
+				case "alarm":
+					appli.setAlarm(o);
+					break;
+			}
+		} catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+			e.printStackTrace();
+		}
+    	
+    	this.appli.reload();
+    }
     public Appli initMainPlugin() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
     	Class<?> classMain = Class.forName("plugins."+defaultPlugin.getClassName());
             Object pluginMain = classMain.newInstance();
             ((Appli) pluginMain).run();
+            this.appli = ((Appli) pluginMain);
             return (Appli) pluginMain;
     }
     
  // The entry main() method
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ParseException {
-    	PluginsLoader p = new PluginsLoader();
+    	PluginsLoader p = PluginsLoader.getInstance();
     	p.initMainPlugin();
     }
 
@@ -147,28 +161,24 @@ public class PluginsLoader {
 		try {
 			classUI = Class.forName("plugins.ui."+defaultUI);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         Object ui = null;
 		try {
 			ui = classUI.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
   	    Class<?> classB = null;
 		try {
 			classB = Class.forName("plugins.ui."+defaultBody);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         Object body = null;
 		try {
 			body = classB.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         ((UserInterface) ui).addBody((Body) body);
@@ -176,14 +186,12 @@ public class PluginsLoader {
 		try {
 			classM = Class.forName("plugins.ui."+defaultMenu);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         Object menu = null;
 		try {
 			menu = classM.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         ((UserInterface) ui).addMenu((Menu) menu);
@@ -196,14 +204,12 @@ public class PluginsLoader {
 		try {
 			classML = Class.forName("plugins.model."+defaultModelLoader);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         Object modelLoader = null;
 		try {
 			modelLoader = classML.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return (ModelLoader) modelLoader;
@@ -214,14 +220,12 @@ public class PluginsLoader {
 		try {
 			classA = Class.forName("plugins.alarm."+defaultAlarm);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         Object alarm = null;
 		try {
 			alarm = classA.newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return (AlarmLoader) alarm;

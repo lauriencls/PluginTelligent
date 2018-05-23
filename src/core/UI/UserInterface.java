@@ -37,6 +37,7 @@ public abstract class UserInterface {
 
 	public void setAppli(Appli appli) {
 		this.appli = appli;
+		
 	}
 
 	protected List<Menu> menus;
@@ -57,6 +58,12 @@ public abstract class UserInterface {
 	}
 	public void setMenus(List<Menu> menus) {
 		this.menus = menus;
+	}
+	
+	public void setUserInterfaceToMenu() {
+		for(Menu m:menus){
+			m.setUserInterface(this);
+		}
 	}
 	
 	private void displayMenu() {
@@ -84,10 +91,12 @@ public abstract class UserInterface {
 	}
 		
 	public void addBody(Body b){
+		this.bodies.clear();
 		this.bodies.add(b);
 	}
 	
 	public void addMenu(Menu m){
+		this.menus.clear();
 		this.menus.add(m);
 	}
 	
@@ -98,6 +107,15 @@ public abstract class UserInterface {
 				b.addMessage((Message) m);
 			}
 		}
+	}
+
+	public void reload() {
+		this.frame.setVisible(false);
+		
+		this.frame = new JFrame();
+		
+		display();
+		
 	}
 	
 }
