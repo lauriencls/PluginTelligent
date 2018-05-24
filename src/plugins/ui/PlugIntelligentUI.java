@@ -20,6 +20,7 @@ public class PlugIntelligentUI extends UserInterface {
 	
 	public PlugIntelligentUI(){
 		super();
+		super.title = "PlugIntelligent";
 	}
 
 }

@@ -10,8 +10,10 @@ public class RobinAlarm extends AlarmLoader {
 
 	@Override
 	public void triggerAlarm(Alarm alarm) {
-		JFrame frame = new JFrame();
-		JOptionPane.showMessageDialog(frame, alarm.getMessage().getTitle() + " - " + alarm.getMessage().getBody(), "RAPPEL", JOptionPane.PLAIN_MESSAGE);
+		if(alarm.isActive()){
+			JFrame frame = new JFrame();
+			JOptionPane.showMessageDialog(frame, alarm.getMessage().getTitle() + " - " + alarm.getMessage().getBody(), "RAPPEL", JOptionPane.PLAIN_MESSAGE);
+		}
 	}
 
 }

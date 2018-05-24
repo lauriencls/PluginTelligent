@@ -28,7 +28,7 @@ import core.UI.Body;
 import core.model.ModelLoader;
 import model.Message;
 
-public class PlugIntelligentBody extends Body {
+public class RobinBody extends Body {
 	
 	JButton     sendMessage;
 	JTextArea  messageBox;
@@ -40,7 +40,7 @@ public class PlugIntelligentBody extends Body {
     JCheckBox 	reminder;
     boolean 	remind = false;
 	
-	public PlugIntelligentBody() {
+	public RobinBody() {
 		super();
 		pi = this;
 	}
@@ -48,7 +48,7 @@ public class PlugIntelligentBody extends Body {
 	@Override
 	protected void drawTextEntry() {
         southPanel = new JPanel();
-        southPanel.setBackground(Color.GRAY);
+        southPanel.setBackground(Color.WHITE);
         southPanel.setLayout(new GridBagLayout());
 
         messageBox = new JTextArea();
@@ -101,6 +101,9 @@ public class PlugIntelligentBody extends Body {
         chatBox.setEditable(false);
         chatBox.setFont(new Font("Arial", Font.PLAIN, 15));
         chatBox.setLineWrap(true);
+        chatBox.setBackground(Color.GRAY);
+        chatBox.setForeground(Color.WHITE);
+
 
         mainPanel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
 	}

@@ -29,6 +29,7 @@ public class PlugIntelligentModelLoader extends ModelLoader {
 	@Override
 	public void load() {
 		JSONParser parser = new JSONParser();
+		clearModel();
 		try {
 			JSONObject obj = (JSONObject) parser.parse(new FileReader(filename));
 			JSONArray JSONAlarms = (JSONArray) obj.get("Alarms");
@@ -51,6 +52,13 @@ public class PlugIntelligentModelLoader extends ModelLoader {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void clearModel() {
+		alarms.clear();
+		messages.clear();
+		users.clear();
 	}
 
 	@Override

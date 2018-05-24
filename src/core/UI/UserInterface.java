@@ -1,6 +1,7 @@
 package core.UI;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,13 @@ import core.model.Model;
 import model.Message;
 
 public abstract class UserInterface {
+	private static final int height = 700;
+	private static final int width = 900;
 	protected List<Body> bodies;
 	protected JFrame frame;
 	protected Appli appli;
 	protected List<Menu> menus;
+	protected String title = "Plateforme de plugins";
 	
 	public UserInterface() {
 		super();
@@ -49,7 +53,8 @@ public abstract class UserInterface {
 	public void display(){
 		displayMenu();
 		displayBody();
-		
+		frame.setTitle(title);
+		frame.setPreferredSize(new Dimension(width, height));
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
@@ -59,9 +64,10 @@ public abstract class UserInterface {
 	}
 	
 	private void populateMessage(List<Model> list){
-		for(Model m:
-			list){
-			for(Body b:bodies){
+		for(Body b:bodies){
+			b.clearListMessages();
+			for(Model m:
+				list){
 				b.addMessage((Message) m);
 			}
 		}

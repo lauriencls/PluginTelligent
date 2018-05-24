@@ -1,9 +1,11 @@
 package core.UI;
 
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -16,8 +18,11 @@ import loader.PluginsLoader;
 public abstract class Menu {
 	private String uniqueName;
 	protected UserInterface userInterface;
+	protected JMenuBar menubar;
+	private Map<String,JMenu> menus;
 
 	public Menu() {
+		this.menus = new HashMap<>();
 	}
 
 	public Menu(String uniqueName) {
@@ -30,18 +35,41 @@ public abstract class Menu {
 	 */
 	public void draw(){
 		JFrame myframe = this.userInterface.getFrame();
-		JMenuBar menubar = new JMenuBar();
-		addMenuToMenuBar(menubar, "ui", "Plugins pour l'interface");
-		addMenuToMenuBar(menubar, "alarm", "Plugins pour l'alarme");
-		addMenuToMenuBar(menubar, "model", "Plugins pour les données");
+		menubar = new JMenuBar();
+		addMenuToMenuBar("ui", "Plugins pour l'interface");
+		addMenuToMenuBar("alarm", "Plugins pour l'alarme");
+		addMenuToMenuBar("model", "Plugins pour les données");
 		myframe.setJMenuBar(menubar);
 		drawMenu();
+	}
+	
+	/*
+	 * Permet d'ajouter un élément au Menu
+	 */
+	protected void addMenuItemToMenu(String menuTitle, String menuItemTitle, AbstractAction action) {
+		JMenu menu;
+		action.putValue(AbstractAction.NAME, menuItemTitle);
+		menu = this.menus.get(menuTitle);
+		if(menu != null){
+			JMenuItem size = new JMenuItem(action);
+			menu.add(size);
+		}
+	}
+	
+	/*
+	 * Permet d'ajouter un menu à la bar des menus
+	 */
+	protected void addMenuToMenuBar(String menuTitle) {
+		JMenu menu;
+		menu = new JMenu(menuTitle);
+		menubar.add(menu);
+		this.menus.put(menuTitle, menu);
 	}
 
 	/*
 	 * Permet d'ajouter un élément au Menu
 	 */
-	public void addMenuToMenuBar(JMenuBar menubar, String typePlugin, String menuTitle) {
+	private void addMenuToMenuBar(String typePlugin, String menuTitle) {
 		JMenu menu;
 		menu = new JMenu(menuTitle);
 		for(Map.Entry<String,PluginDescriptor> pl:PluginsLoader.getInstance().getAllPluginsByType(typePlugin).entrySet()){	

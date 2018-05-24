@@ -32,5 +32,6 @@ public abstract class ModelLoader {
 	//permet d'accéder depuis l'extérieur et sans connaître l'implémentation exacte aux listes d'instances du modèle
 	public abstract List<Model> getRessourceByName(String className);
 	
+	public abstract void clearModel();
 	
 }

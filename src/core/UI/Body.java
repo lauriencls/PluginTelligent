@@ -26,6 +26,8 @@ public abstract class Body {
 	
 	protected abstract void drawListMessages();
 	
+	protected abstract void clearListMessages();
+	
 	protected abstract void drawChannelPanel();
 	
 	public abstract void addMessage(Message message);
@@ -41,7 +43,6 @@ public abstract class Body {
 	 */
 	public void draw(){		
 		drawBody();
-		        
 	}
 
 	

@@ -30,6 +30,12 @@
 		    "dependencies":[]
 		},
 		{
+		    "type":"ui",
+		    "name":"Plugin thème dark",
+		    "className":"RobinBody",
+		    "dependencies":[]
+		},
+		{
 		    "type":"alarm",
 		    "name":"PlugIntelligent alarm",
 		    "className":"PlugIntelligentAlarm",
