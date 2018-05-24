@@ -1,0 +1,16 @@
+try {
+    JFrame frame = new JFrame();
+      JOptionPane.showMessageDialog(frame, alarm.getMessage().getTitle() + " - " + alarm.getMessage().getBody(), "RAPPEL", JOptionPane.PLAIN_MESSAGE);
+
+    File soundFile = new File("/Users/robin_delaporte/Documents/workspace/PluginTelligent/src/ressource/bark.wav"); //you could also get the sound file with an URL
+    AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);              
+   Clip clip = AudioSystem.getClip();
+   clip.open(audioIn);
+   clip.start();
+} catch (UnsupportedAudioFileException e) {
+   e.printStackTrace();
+} catch (IOException e) {
+   e.printStackTrace();
+} catch (LineUnavailableException e) {
+   e.printStackTrace();
+}

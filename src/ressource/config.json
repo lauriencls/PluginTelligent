@@ -43,7 +43,7 @@
 		},
 		{
 		    "type":"alarm",
-		    "name":"C'est mon alarm",
+		    "name":"Alarme nulle 2",
 		    "className":"RobinAlarm",
 		    "dependencies":[]
 		},
